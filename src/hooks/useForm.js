@@ -6,21 +6,20 @@ const useForm = ({ initialValueForm }) => {
   const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
   const onBlur = ({ target }) => { // Valida el campo requerido
-    let error = errors;
     let { name } = target;
     let { value, required } = fields[name];
     if (!value && required) {
-      error[name] = "Required field";
+      errors[name] = "Required field";
     } else if (name === "email" && value) {
       if (!emailRegex.test(value)) {
-        error[name] = "Invalid email";
+        errors[name] = "Invalid email";
       }else{
-        delete error[name];
+        delete errors[name];
       }
-    } else if (error[name]) {
-      delete error[name];
+    } else if (errors[name]) {
+      delete errors[name];
     }
-    setErrors({ ...error });
+    setErrors({ ...errors });
   };
 
    const onChange = ({ target }) => { // Agrega el valor del campo
@@ -50,9 +49,8 @@ const useForm = ({ initialValueForm }) => {
   };
 
   const validateForm = () => { // Valida el formulario
-    let requireds = validateFields();
-    setErrors(requireds);
-    return requireds;
+    setErrors(validateFields());
+    return validateFields();
   };
 
   return {
@@ -63,24 +61,26 @@ const useForm = ({ initialValueForm }) => {
       name,
       value: fields[name].value,
       onChange,
-      onBlur
+      onBlur,
     }),
     checkbox: (name) => ({
       name,
       value: fields[name].value,
-      onChange
+      onChange,
+      onBlur
     }),
     radio: (name, value) => ({
       name,
       value,
       checked: value === fields[name].value,
-      onChange
+      onChange,
+      onBlur,
     }),
     select: (name) => ({
       name,
       value: fields[name].value,
       onChange,
-      onBlur
+      onBlur,
     }),
   };
 };
