@@ -94,7 +94,7 @@ const Inicio = ({...props}) => {
                 </Label>
               </FormGroup>
               <br></br>
-              <Button onClick={() => handleSubmit()}>Submit</Button>
+              <Button onClick={handleSubmit}>Submit</Button>
             </Form>
           </Col>
         </Row>
