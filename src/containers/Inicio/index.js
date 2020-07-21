@@ -98,7 +98,7 @@ const Inicio = ({...props}) => {
             </Form>
           </Col>
         </Row>
-        <style jxs="true">
+        <style jsx="true">
           {`
             .error{
               color:red;
