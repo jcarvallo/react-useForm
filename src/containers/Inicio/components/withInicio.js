@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useForm } from "../../../hooks";
 
 const withInicio = (Component) => (props) => {
@@ -20,14 +20,10 @@ const withInicio = (Component) => (props) => {
     formControlError: (name) => (errors[name] ? "form-control-error" : ""),
     handleSubmit: () => {
       if (!Object.values(validateForm()).length) {
-        let data = {
-          email: fields.email.value,
-          password: fields.password.value,
-          select: fields.select.value,
-          textarea: fields.textarea.value,
-          checkbox: fields.checkbox.value,
-          radio: fields.radio.value,
-        };
+        let data = {};
+        for (const [key, field] of Object.entries(fields)) {
+          data = { ...data, [key]: field.value };
+        }
         alert(JSON.stringify(data));
       }
     },
